@@ -1,21 +1,3 @@
-class ColorfyHints:
-    black = "black"
-    red = "red"
-    green = "green"
-    yellow = "yellow"
-    blue = "blue"
-    magenta = "magenta"
-    cyan = "cyan"
-    white = "while"
-
-    bold = "bold"
-    underline = "underline"
-    reverse = "reverse"
-    reset = "reset"
-    italic = "italic"
-    crossed = "crossed"
-
-
 class Colorfy:
     def __init__(self, string=""):
         self.text = string
@@ -38,6 +20,25 @@ class Colorfy:
                        "reset": "\u001b[0m",
                        "italic": "\u001b[3m",
                        "crossed": "\u001b[9m"}
+
+    class hints:
+        class color:
+            black = "black"
+            red = "red"
+            green = "green"
+            yellow = "yellow"
+            blue = "blue"
+            magenta = "magenta"
+            cyan = "cyan"
+            white = "while"
+
+        class style:
+            bold = "bold"
+            underline = "underline"
+            reverse = "reverse"
+            reset = "reset"
+            italic = "italic"
+            crossed = "crossed"
 
     def paint(self, color="", string="", background=False):
         self.text = string if string else self.text
@@ -81,7 +82,6 @@ class Colorfy:
 
 
 text = Colorfy('Template')
-text.paint(ColorfyHints.red)
-text.paint(ColorfyHints.black, background=True)
-text.style(ColorfyHints.italic)
+text.paint(Colorfy.hints.color.red)
+text.style(Colorfy.hints.style.italic)
 text.show()
