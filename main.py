@@ -29,7 +29,7 @@ class Colorfy:
             cyan = "cyan"
             white = "while"
 
-        class style:
+        class Style:
             bold = "bold"
             underline = "underline"
             reverse = "reverse"
@@ -40,7 +40,7 @@ class Colorfy:
     def paint(self, color="", string="", background=False):
         self.text = string if string else self.text
         if not color.startswith("\u001b"):
-            self.effects += self.hash_codes[color].format('4' if background else '3')
+            self.effects += self.hash_codes[color.lower()].format('4' if background else '3')
         else:
             self.effects += color.format('4' if background else '3')
         return self
@@ -101,8 +101,3 @@ class Colorfy:
 
     def __repr__(self):
         return "".join(self.effects) + self.text + self.format['reset']
-
-
-text = Colorfy('Template')
-text.paint(Colorfy.Hints.Color.red)
-text.help(visualise=True)
