@@ -39,13 +39,13 @@ class Colorfy:
                        "italic": "\u001b[3m",
                        "crossed": "\u001b[9m"}
 
-    def paint(self, color="", text="", background=False):
-        self.text = text if text else self.text
+    def paint(self, color="", string="", background=False):
+        self.text = string if string else self.text
         self.effects += self.hash_codes[color].format('4' if background else '3')
         return self
 
-    def style(self, style="", text=""):
-        self.text = text if text else self.text
+    def style(self, style="", string=""):
+        self.text = string if string else self.text
         self.effects += self.format[style]
         return self
 
@@ -70,8 +70,8 @@ class Colorfy:
                        "Crossed"]
 
         print(
-            f"{p.paint(text='Colors:', color=h.red)} {p.paint(text=', '.join(color_list), color=h.blue)}"
-            f"\n{p.paint(text='Styles:', color=h.red)} {p.paint(text=', '.join(styles_list), color=h.blue)}")
+            f"{p.paint(string='Colors:', color=h.red)} {p.paint(string=', '.join(color_list), color=h.blue)}"
+            f"\n{p.paint(string='Styles:', color=h.red)} {p.paint(string=', '.join(styles_list), color=h.blue)}")
 
     def show(self):
         print("".join(self.effects) + self.text + self.format['reset'])
