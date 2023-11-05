@@ -2,9 +2,6 @@ class Colorfy:
     def __init__(self, string=""):
         self.text = string
         self.effects = []
-        self.__setup()
-
-    def __setup(self):
         self.hash_codes = {"black": "\u001b[{}0m",
                            "red": "\u001b[{}1m",
                            "green": "\u001b[{}2m",
@@ -21,8 +18,8 @@ class Colorfy:
                        "italic": "\u001b[3m",
                        "crossed": "\u001b[9m"}
 
-    class hints:
-        class color:
+    class Hints:
+        class Color:
             black = "black"
             red = "red"
             green = "green"
@@ -42,7 +39,10 @@ class Colorfy:
 
     def paint(self, color="", string="", background=False):
         self.text = string if string else self.text
-        self.effects += self.hash_codes[color].format('4' if background else '3')
+        if not color.startswith("\u001b"):
+            self.effects += self.hash_codes[color].format('4' if background else '3')
+        else:
+            self.effects += color.format('4' if background else '3')
         return self
 
     def style(self, style="", string=""):
@@ -51,9 +51,9 @@ class Colorfy:
         return self
 
     @staticmethod
-    def help():
+    def help(visualise=False):
         p = Colorfy()
-        h = ColorfyHints()
+        h = Colorfy.Hints()
         color_list = ["Black",
                       "Red",
                       "Green",
@@ -66,13 +66,32 @@ class Colorfy:
         styles_list = ["Reset",
                        "Bold",
                        "Italic",
-                       "Underlined",
-                       "Inverted",
+                       "Underline",
+                       "Reverse",
                        "Crossed"]
 
-        print(
-            f"{p.paint(string='Colors:', color=h.red)} {p.paint(string=', '.join(color_list), color=h.blue)}"
-            f"\n{p.paint(string='Styles:', color=h.red)} {p.paint(string=', '.join(styles_list), color=h.blue)}")
+        if visualise:
+            color_res = []
+            for i in color_list:
+                color = Colorfy(i)
+                color_res += [color.paint(color=i.lower())]
+            color_res = ", ".join(map(str, color_res))
+
+            style_res = []
+            for i in styles_list:
+                style = Colorfy(i)
+                style_res += [style.style(style=i.lower())]
+
+            style_res = ", ".join(map(str, style_res))
+            print(
+                f"{p.paint(string='Colors:', color=h.Color.red)}: {color_res}"
+                f"\n{p.paint(string='Styles:', color=h.Color.red)} {style_res}")
+        else:
+            print(
+                f"{p.paint(string='Colors:', color=h.Color.red)} "
+                f"{p.paint(string=', '.join(color_list), color=h.Color.blue)}"
+                f"\n{p.paint(string='Styles:', color=h.Color.red)} "
+                f"{p.paint(string=', '.join(styles_list), color=h.Color.blue)}")
 
     def show(self):
         print("".join(self.effects) + self.text + self.format['reset'])
@@ -80,8 +99,10 @@ class Colorfy:
     def __str__(self):
         return "".join(self.effects) + self.text + self.format['reset']
 
+    def __repr__(self):
+        return "".join(self.effects) + self.text + self.format['reset']
+
 
 text = Colorfy('Template')
-text.paint(Colorfy.hints.color.red)
-text.style(Colorfy.hints.style.italic)
-text.show()
+text.paint(Colorfy.Hints.Color.red)
+text.help(visualise=True)
