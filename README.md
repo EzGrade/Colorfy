@@ -12,4 +12,4 @@ Formats text due to style param. To style you can pass style name(such as ```"it
 
 ---
 ## Help
-You can easily call ```Colorfy.help()``` to see all available colors and styles. Also you can pass ```visualise``` parameter(True or False) to see how different colors or styles will look like
+You can easily call ```Colorfy.help()``` to see all available colors and styles. Can be pass ```visualise``` parameter(True or False) to see how different colors or styles will look like, ```mix``` parameter to see how different color will look like with different styles(pairs created randomly).
