@@ -4,6 +4,7 @@ class Colorfy:
         self.effects = []
         self.hash_codes = {"black": "\u001b[{}0m",
                            "red": "\u001b[{}1m",
+                           "bright_red": "\033[1;31;40m",
                            "green": "\u001b[{}2m",
                            "yellow": "\u001b[{}3m",
                            "blue": "\u001b[{}4m",
@@ -51,7 +52,7 @@ class Colorfy:
         return self
 
     @staticmethod
-    def help(visualise=False) -> None:
+    def help(visualise=False, mix=False) -> None:
         p = Colorfy()
         h = Colorfy.Hints()
         color_list = ["Black",
@@ -84,13 +85,25 @@ class Colorfy:
 
             style_res = ", ".join(map(str, style_res))
             print(
-                f"{p.paint(string='Colors:', color=h.Color.red)}: {color_res}"
-                f"\n{p.paint(string='Styles:', color=h.Color.red)} {style_res}")
+                f"{p.paint(string='Colors', color=h.Color.red)}: {color_res}"
+                f"\n{p.paint(string='Styles', color=h.Color.red)}: {style_res}")
+        elif mix:
+            from itertools import product
+            from random import sample, seed
+            from time import time
+            seed(time())
+            combinations = list(product(*[color_list, styles_list]))
+            to_print = sample(combinations, 8)
+            res = []
+            for i in to_print:
+                text = Colorfy(f"{i[0]} + {i[1]}")
+                res += [text.paint(color=i[0].lower()).style(style=i[1].lower())]
+            print(f"{p.paint(color=h.Color.red, string="Mixed Example")}: {', '.join(list(map(str, res)))}")
         else:
             print(
-                f"{p.paint(string='Colors:', color=h.Color.red)} "
+                f"{p.paint(string='Colors', color=h.Color.red)}: "
                 f"{p.paint(string=', '.join(color_list), color=h.Color.blue)}"
-                f"\n{p.paint(string='Styles:', color=h.Color.red)} "
+                f"\n{p.paint(string='Styles', color=h.Color.red)}: "
                 f"{p.paint(string=', '.join(styles_list), color=h.Color.blue)}")
 
     def show(self) -> None:
