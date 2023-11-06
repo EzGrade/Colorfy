@@ -1,5 +1,5 @@
 class Colorfy:
-    def __init__(self, string=""):
+    def __init__(self, string="") -> None:
         self.text = string
         self.effects = []
         self.hash_codes = {"black": "\u001b[{}0m",
@@ -51,7 +51,7 @@ class Colorfy:
         return self
 
     @staticmethod
-    def help(visualise=False):
+    def help(visualise=False) -> None:
         p = Colorfy()
         h = Colorfy.Hints()
         color_list = ["Black",
@@ -93,7 +93,7 @@ class Colorfy:
                 f"\n{p.paint(string='Styles:', color=h.Color.red)} "
                 f"{p.paint(string=', '.join(styles_list), color=h.Color.blue)}")
 
-    def show(self):
+    def show(self) -> None:
         print("".join(self.effects) + self.text + self.format['reset'])
 
     def __str__(self):
