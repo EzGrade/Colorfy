@@ -2,7 +2,7 @@
 ## Text and Background painting
 ```Colorfy.paint(color=Colorfy.Hints.Color, background: bool)```
 
-Paints text or background(if background = True) due to color param. To ```color=``` you can pass color name(like ```"blue"```), ```Colorfy.Hints.Color``` or ascii escape code. ```background: bool``` to paint background.
+Paints text or background(if background = True) due to color arg. To ```color``` you can pass color name(like ```"blue"```), ```Colorfy.Hints.Color``` or ascii escape code. ```background: bool``` to paint background.
 
 ---
 ## Text Style
